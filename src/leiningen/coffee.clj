@@ -5,40 +5,34 @@
 
 (def default-coffee-bin "node_modules/coffee-script/bin/coffee")
 
-(defn coffee-cmd
-  [{:keys [coffee-bin
-           coffee-bare
-           coffee-compile
-           coffee-join
-           coffee-output
-           coffee-watch
-           coffee-sources],
-    :or {coffee-bin default-coffee-bin
-         coffee-compile true
-         coffee-sources []}}]
-  (let [flags [(and coffee-watch "-w")
-               (and coffee-compile "-c")
-               (and coffee-bare "-b")
-               (and coffee-join ["-j" coffee-join])
-               (and coffee-output ["-o" coffee-output])]]
+(defn build-default-cmd
+  [{:keys [bin bare compile join output watch sources],
+    :or {bin default-coffee-bin
+         compile true
+         sources []}}]
+  (let [flags [(and watch "-w")
+               (and compile "-c")
+               (and bare "-b")
+               (and join ["-j" join])
+               (and output ["-o" output])]]
     (as-> flags f
           (filter (complement nil?) f)
           (flatten f)
-          (concat [coffee-bin] f coffee-sources))))
+          (concat [bin] f sources))))
 
-(defn coffee-watch
+(defn build-watch-cmd
   [cfg]
-  (-> cfg (merge {:coffee-watch true}) coffee-cmd))
+  (-> cfg (merge {:watch true}) build-default-cmd))
 
-(defn coffee-run
-  [{:keys [coffee-bin], :or {coffee-bin default-coffee-bin}} args]
-  (concat [coffee-bin] args))
+(defn build-run-cmd
+  [{:keys [bin], :or {bin default-coffee-bin}} args]
+  (concat [bin] args))
 
 (defn coffee
   [project & args]
-  (let [opts (select-keys project [:coffee-bare :coffee-output :coffee-join :coffee-sources])
+  (let [opts (or (:coffee project) {})
         cmd (case (first args)
-              "watch" (coffee-watch opts)
-              "run" (coffee-run opts (rest args))
-              (coffee-cmd opts))]
+              "watch" (build-watch-cmd opts)
+              "run" (build-run-cmd opts (rest args))
+              (build-default-cmd opts))]
     (apply shell/shell cmd)))
