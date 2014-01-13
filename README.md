@@ -41,4 +41,4 @@ These correspond to a subset of the usual flags provided by the coffee executabl
 
 Copyright © 2014 SMX
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Distributed under the Eclipse Public License.
