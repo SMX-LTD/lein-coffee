@@ -15,11 +15,11 @@ lein-coffee accepts these parameters in your project.clj:
 ```clj
 :coffee
 {:version ">=1.6.3"
-:sources ["src/main/coffee/foo.coffee"]
-:join "foo.js"
-:output "target/resources/lib/foo/js"
-:bare true
-:watch false}
+ :sources ["src/main/coffee/foo.coffee"]
+ :join "foo.js"
+ :output "target/resources/lib/foo/js"
+ :bare true
+ :watch false}
 ```
 
 These correspond to a subset of the usual flags provided by the coffee executable.

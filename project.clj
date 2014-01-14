@@ -1,5 +1,5 @@
 (defproject lein-coffee "0.1.1"
-  :description "CoffeeScript"
+  :description "Leiningen plugin thinly wrapping the CoffeeScript compiler"
   :url "https://github.com/SMX-LTD"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
