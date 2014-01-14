@@ -13,12 +13,13 @@ Put `[lein-coffee "0.1.1"]` into the `:plugins` vector of your project.clj.
 lein-coffee accepts these parameters in your project.clj:
 
 ```clj
-:coffee-version ">=1.6.3"
-:coffee-sources ["src/main/coffee/foo.coffee"]
-:coffee-join "foo.js"
-:coffee-output "target/resources/lib/foo/js"
-:coffee-bare true
-:coffee-watch false
+:coffee
+{:version ">=1.6.3"
+:sources ["src/main/coffee/foo.coffee"]
+:join "foo.js"
+:output "target/resources/lib/foo/js"
+:bare true
+:watch false}
 ```
 
 These correspond to a subset of the usual flags provided by the coffee executable.
