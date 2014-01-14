@@ -1,4 +1,4 @@
-(defproject lein-coffee "0.1.0"
+(defproject lein-coffee "0.1.1"
   :description "CoffeeScript"
   :url "https://github.com/SMX-LTD"
   :license {:name "Eclipse Public License"
