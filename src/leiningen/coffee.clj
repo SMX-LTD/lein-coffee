@@ -16,7 +16,7 @@
                (and join ["-j" join])
                (and output ["-o" output])]]
     (as-> flags f
-          (filter (complement nil?) f)
+          (remove nil? f)
           (flatten f)
           (concat [bin] f sources))))
 
