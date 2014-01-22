@@ -6,7 +6,7 @@ The current implementation depends on lein-npm and lein-shell. It fetches a suit
 
 ## Usage
 
-Put `[lein-coffee "0.1.2"]` into the `:plugins` vector of your project.clj.
+Put `[lein-coffee "0.1.3"]` into the `:plugins` vector of your project.clj.
 
 ### Configuration
 

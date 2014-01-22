@@ -1,4 +1,4 @@
-(defproject lein-coffee "0.1.3-SNAPSHOT"
+(defproject lein-coffee "0.1.4-SNAPSHOT"
   :description "Leiningen plugin thinly wrapping the CoffeeScript compiler"
   :url "https://github.com/SMX-LTD"
   :license {:name "Eclipse Public License"
