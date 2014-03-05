@@ -34,7 +34,6 @@
   ([deps version]
      (let [coffee-matches (find-coffee-deps deps)
            new-coffee-dep ["coffee-script" (or version default-coffee-version)]]
-       (println (format "Adding npm dependency on %s" new-coffee-dep))
        (if (empty? coffee-matches)
          (conj deps new-coffee-dep)
          (assoc-in deps (first coffee-matches) new-coffee-dep))))
