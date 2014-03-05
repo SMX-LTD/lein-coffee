@@ -6,7 +6,7 @@ The current implementation depends on lein-npm and lein-shell. It fetches a suit
 
 ## Usage
 
-Put `[lein-coffee "0.1.3"]` into the `:plugins` vector of your project.clj.
+Put `[lein-coffee "0.2.1"]` into the `:plugins` vector of your project.clj.
 
 lein-coffee adds hooks to the `compile` and `jar` tasks, so all you need to do is configure it in your project.clj.
 
