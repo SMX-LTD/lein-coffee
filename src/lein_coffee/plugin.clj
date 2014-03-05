@@ -1,10 +1,26 @@
 (ns lein-coffee.plugin
-  (:require [lein-npm.plugin :as npm]))
+  (:require [lein-npm.plugin :as npm]
+            [robert.hooke :as hooke]
+            leiningen.compile
+            leiningen.jar
+            leiningen.coffee))
 
 (def default-coffee-version ">=1.6")
 
+(defn compile-hook [task project & args]
+  (apply task project args)
+  (when (get-in project [:lein-coffee :compile-hook] true)
+    (leiningen.coffee/coffee project)))
+
+(defn jar-hook [task project & args]
+  (when (get-in project [:lein-coffee :jar-hook] true)
+    (leiningen.coffee/coffee project))
+  (apply task project args))
+
 (defn hooks []
-  (npm/hooks))
+  (npm/hooks)
+  (hooke/add-hook #'leiningen.compile/compile #'compile-hook)
+  (hooke/add-hook #'leiningen.jar/jar #'jar-hook))
 
 (defn- coffee-script?
   [dep]
@@ -27,4 +43,4 @@
 
 (defn middleware
   [project]
-  (update-in project [:node-dependencies] #(vec (ensure-coffee % (get-in project [:coffee :version])))))
+  (update-in project [:node-dependencies] #(vec (ensure-coffee % (get-in project [:lein-coffee :coffee :version])))))

@@ -1,6 +1,5 @@
 (ns leiningen.coffee
-  (:require [robert.hooke]
-            [leiningen.deps :as deps]
+  (:require [leiningen.deps :as deps]
             [leiningen.shell :as shell]))
 
 (def default-coffee-bin "node_modules/coffee-script/bin/coffee")
@@ -30,7 +29,7 @@
 
 (defn coffee
   [project & args]
-  (let [opts (or (:coffee project) {})
+  (let [opts (get-in project [:lein-coffee :coffee] {})
         cmd (case (first args)
               "watch" (build-watch-cmd opts)
               "run" (build-run-cmd opts (rest args))
