@@ -12,7 +12,7 @@ lein-coffee adds hooks to the `compile` and `jar` tasks, so all you need to do i
 
 ### Configuration
 
-lein-coffee accepts these parameters in your project.clj:
+lein-coffee accepts these parameters in your project.clj, shown here for a single invocation of the coffee executable:
 
 ```clj
 :lein-coffee
@@ -29,6 +29,28 @@ lein-coffee accepts these parameters in your project.clj:
 ```
 
 These correspond to a subset of the usual flags provided by the coffee executable.
+
+You can also tell lein-coffee to run multiple passes of the coffee executable, by passing in a vector of `:invocations`:
+
+:lein-coffee
+{:compile-hook true ;; Invoke coffee at `lein compile`
+ :jar-hook true ;; Invoke coffee at `lein jar`
+ :coffee
+ {:version ">=1.6"
+  :bare true
+  :watch false ;; Run coffee with `-w` (you definitely don't want this enabled here, or it will block)
+  :invocations
+  [{:sources ["src/main/coffee/foo.coffee"]
+    :join "foo.js"
+    :output "target/resources/lib/foo/js"
+  },
+  {:sources ["src/main/coffee/foo/bar.coffee", "src/main/coffee/foo/baz.coffee"]
+   :join "bar-baz.js"
+   :output "target/resources/lib/foo/js"
+  }]}}
+```
+
+Each invocation map inherits relevant default values from the `:coffee` config.
 
 ### Example
 

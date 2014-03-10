@@ -9,11 +9,11 @@
 
 (defn compile-hook [task project & args]
   (apply task project args)
-  (when (get-in project [:lein-coffee :compile-hook] true)
+  (when (and (:lein-coffee project) (get-in project [:lein-coffee :compile-hook] true))
     (leiningen.coffee/coffee project)))
 
 (defn jar-hook [task project & args]
-  (when (get-in project [:lein-coffee :jar-hook] true)
+  (when (and (:lein-coffee project) (get-in project [:lein-coffee :jar-hook] true))
     (leiningen.coffee/coffee project))
   (apply task project args))
 

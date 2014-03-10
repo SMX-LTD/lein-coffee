@@ -6,6 +6,7 @@
 
 (defn build-default-cmd
   [{:keys [bin bare compile join output watch sources],
+    :as opts,
     :or {bin default-coffee-bin
          compile true
          sources []}}]
@@ -19,19 +20,27 @@
           (flatten f)
           (concat [bin] f sources))))
 
-(defn build-watch-cmd
-  [cfg]
-  (-> cfg (merge {:watch true}) build-default-cmd))
+(defn build-default-cmds [{:keys [invocations], :or {invocations []}, :as opts}]
+  (if (empty? invocations)
+    [(build-default-cmd (dissoc opts :invocations))]
+    (->> (map (fn [inv] (merge (dissoc opts :invocations) inv)) invocations)
+         (map build-default-cmd))))
 
-(defn build-run-cmd
+(defn build-watch-cmds
+  [cfg]
+  [(-> cfg (merge {:watch true}) build-default-cmd)])
+
+(defn build-run-cmds
   [{:keys [bin], :or {bin default-coffee-bin}} args]
-  (concat [bin] args))
+  [(concat [bin] args)])
 
 (defn coffee
   [project & args]
   (let [opts (get-in project [:lein-coffee :coffee] {})
-        cmd (case (first args)
-              "watch" (build-watch-cmd opts)
-              "run" (build-run-cmd opts (rest args))
-              (build-default-cmd opts))]
-    (apply shell/shell cmd)))
+        cmds (case (first args)
+              "watch" (build-watch-cmds opts)
+              "run" (build-run-cmds opts (rest args))
+              (build-default-cmds opts))]
+    (doseq [cmd cmds]
+      (println "lein-coffee: shell:" cmd)
+      (apply shell/shell cmd))))
