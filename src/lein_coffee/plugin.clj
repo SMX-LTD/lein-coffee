@@ -42,4 +42,4 @@
 
 (defn middleware
   [project]
-  (update-in project [:node-dependencies] #(vec (ensure-coffee % (get-in project [:lein-coffee :coffee :version])))))
+  (update-in project [:node-dependencies] #(vec (ensure-coffee % (get-in project [:lein-coffee :coffee-version])))))

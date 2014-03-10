@@ -18,9 +18,9 @@ lein-coffee accepts these parameters in your project.clj, shown here for a singl
 :lein-coffee
 {:compile-hook true ;; Invoke coffee at `lein compile`
  :jar-hook true ;; Invoke coffee at `lein jar`
+ :coffee-version ">=1.6"
  :coffee
- {:version ">=1.6"
-  :sources ["src/main/coffee/foo.coffee"]
+ {:sources ["src/main/coffee/foo.coffee"]
   :join "foo.js"
   :output "target/resources/lib/foo/js"
   :bare true
@@ -35,9 +35,9 @@ You can also tell lein-coffee to run multiple passes of the coffee executable, b
 :lein-coffee
 {:compile-hook true ;; Invoke coffee at `lein compile`
  :jar-hook true ;; Invoke coffee at `lein jar`
+ :coffee-version ">=1.6"
  :coffee
- {:version ">=1.6"
-  :bare true
+ {:bare true
   :watch false ;; Run coffee with `-w` (you definitely don't want this enabled here, or it will block)
   :invocations
   [{:sources ["src/main/coffee/foo.coffee"]
