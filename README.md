@@ -32,6 +32,7 @@ These correspond to a subset of the usual flags provided by the coffee executabl
 
 You can also tell lein-coffee to run multiple passes of the coffee executable, by passing in a vector of `:invocations`:
 
+```clj
 :lein-coffee
 {:compile-hook true ;; Invoke coffee at `lein compile`
  :jar-hook true ;; Invoke coffee at `lein jar`
